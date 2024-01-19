@@ -1,6 +1,6 @@
-let value1
-let value2
-let operator
+let value1=2
+let value2=3
+let operator="/"
 
 function add(value1,value2) {
     return value1+value2
@@ -33,7 +33,8 @@ function operation (value1, value2, operator) {
 }
 function display() {
     const display=document.querySelectorAll('button')
-    //let input=[]
+    let input=""
+    let inputArray=[]
     let input_number=""
     display.forEach((button) => {
         button.addEventListener('click', ()=> {
@@ -41,18 +42,43 @@ function display() {
             if (button.className==="number" || button.className==="operator") {
                 const number=button.id
                 input_number+=number
+                //console.log(input_number.split(/([+\-*/])/).length)
+                //console.log(input_number.split(/([+\-*/])/))
                 console.log(input_number)
                 display.textContent=`${input_number}`
             }
-
+            
+            if (button.className==="operator" || button.id==="enter") {
+                let range=input_number.length
+                for (let i=0; i < range; i++) {
+                    if (input_number[i]!='+'){
+                        input+=input_number[i]
+                        console.log(input_number[i])
+                        console.log(input)
+                    }
+                    else {
+                        inputArray.push(input)
+                        console.log(inputArray)
+                        inputArray.push(input_number[i])
+                        console.log(inputArray)
+                        input=""
+                    }
+                } input_number=""
+                console.log(input_number)
+                
+                //if (input_number!=="") {
+                //    input.push(input_number.slice(0,input_number.length-1))
+                }
+                //input.push(button.id)
+                //display.textContent=`${input.join(" ").toString()}`
+        
             if (button.id ==="clear") {
                 input_number="";
                 display.textContent=''
             } 
-            
             if (button.id==="enter") {
                 const input=input_number.split(/([+\-*/])/)
-                console.log(input)
+                console.log(input.length)
                 const output=operation(Number(input[0]),Number(input[2]),input[1])
                 console.log(output)
                 display.textContent=`${output}`
