@@ -10,7 +10,7 @@ function substract(value1,value2) {
     return value1-value2
 }
 
-function mutiply(value1,value2) {
+function multiply(value1,value2) {
     return value1*value2
 }
 function divide(value1,value2) {
@@ -33,24 +33,41 @@ function operation (value1, value2, operator) {
 }
 function display() {
     const display=document.querySelectorAll('button')
-    const input=[]
+    //let input=[]
+    let input_number=""
     display.forEach((button) => {
         button.addEventListener('click', ()=> {
-            input.push(button.id)
             const display=document.querySelector('.display')
-            display.textContent=`${input.join(" ").toString()}`
-            //input.push(button.id)
-            console.log(input)
+            if (button.className==="number" || button.className==="operator") {
+                const number=button.id
+                input_number+=number
+                console.log(input_number)
+                display.textContent=`${input_number}`
+            }
+            /*
+            if (button.className==="operator" || button.id==="enter") {
+                if (input_number!=="") {
+                    input.push(input_number.slice(0,input_number.length-1))
+                }
+                input.push(button.id)
+                //display.textContent=`${input.join(" ").toString()}`
+                input_number=""
+                console.log(input_number)
+                console.log(input)
+            }
+            */
             if (button.id ==="clear") {
-                input.length=0;
+                input_number="";
                 display.textContent=''
             } 
-            if (input.length === 4 && button.id==="enter") {
+            if (button.id==="enter") {
+                const input=input_number.split(/([+\-*/])/)
+                console.log(input)
                 const output=operation(Number(input[0]),Number(input[2]),input[1])
                 console.log(output)
                 display.textContent=`${output}`
-                input.length=0;
-                input.push(output)
+                input_number="";
+                input_number+=output
                 console.log(input)
             }
 
