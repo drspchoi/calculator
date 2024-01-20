@@ -1,6 +1,6 @@
-let value1
-let value2
-let operator
+//let value1=''
+//let value2=''
+//let operator=''
 
 function add(value1,value2) {
     return value1+value2
@@ -32,39 +32,72 @@ function operation (value1, value2, operator) {
     }
 }
 function display() {
-    const display=document.querySelectorAll('button')
-    //let input=[]
-    let input_number=""
-    display.forEach((button) => {
+    const buttons=document.querySelectorAll('button')
+    let input=[]
+    let value1=""
+    let value2=""
+    let operator=""
+    let operator2=""
+    buttons.forEach((button) => {
         button.addEventListener('click', ()=> {
             const display=document.querySelector('.display')
-            if (button.className==="number" || button.className==="operator") {
-                const number=button.id
-                input_number+=number
-                console.log(input_number)
-                display.textContent=`${input_number}`
+            console.log(button)
+
+            if (value2 && operator && button.className==="operator") {
+                const oper2=button.textContent
+                operator2+=oper2
+        
             }
 
+            if (value1 && operator && button.id!=="enter" && button.className!="operator") {
+                const number2=button.textContent
+                value2+=number2
+
+            }
+            if (value2==false && button.className==="number") {
+                const number=button.textContent
+                value1+=number
+                
+            }
+            if (button.className==="operator" && operator==false) {
+                const oper=button.textContent
+                operator+=oper
+                
+            }
+        
+            display.textContent=`${value1}${operator}${value2}`
+            
+
             if (button.id ==="clear") {
-                input_number="";
+                value1="";
+                value2="";
+                operator="";
+                operator2=""
                 display.textContent=''
             } 
             
+            if (value2 && operator2) {
+
+                const output=operation(Number(value1),Number(value2),operator)
+                value1=output;
+                value2=""
+                operator=operator2
+            }
+
             if (button.id==="enter") {
-                const input=input_number.split(/([+\-*/])/)
-                console.log(input)
-                const output=operation(Number(input[0]),Number(input[2]),input[1])
-                console.log(output)
+
+                const output=operation(Number(value1),Number(value2),operator)
                 display.textContent=`${output}`
-                input_number="";
-                input_number+=output
-                console.log(input)
+                value1=output;
+                value2=""
+                operator=""
+               
             }
 
         })
     })
 }
 
-const result=operation(value1,value2,operator)
-console.log(result)
+//const result=operation(value1,value2,operator)
+//console.log(result)
 display()
