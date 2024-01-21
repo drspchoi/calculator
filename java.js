@@ -44,7 +44,7 @@ function display() {
             console.log(button)
 
             if (value2 && operator && button.className==="operator") {
-                const oper2=button.textContent
+                const oper2=button.id
                 operator2+=oper2
         
             }
@@ -60,7 +60,7 @@ function display() {
                 
             }
             if (button.className==="operator" && operator==false) {
-                const oper=button.textContent
+                const oper=button.id
                 operator+=oper
                 
             }
